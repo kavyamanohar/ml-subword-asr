@@ -17,12 +17,12 @@ fi
 
 input_dir=$1
 
-# swunit=word
+swunit=word
 # swunit=bpe
 # swunit=morph
 # swunit=unigram
 # swunit=syl
-swunit=sbpe
+# swunit=sbpe
 
 language_dir=$1/languages
 subwordlanguage_dir=$1/languages/$swunuit

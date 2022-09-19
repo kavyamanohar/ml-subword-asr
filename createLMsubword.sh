@@ -109,7 +109,7 @@ rm -rf $data_dir/local/tmp_$train_lang
 rm -rf $data_dir/$train_lang
 rm -rf $data_dir/$train_folder
 
-echo "$0: Looking for lexicon files in $language_dir"
+echo "$0: Looking for lexicon files in $language_dir/$swunit"
 
 sourcelexicon=lexicon_g.txt
 
