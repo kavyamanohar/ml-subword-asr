@@ -31,8 +31,8 @@ train_dir=$1/train
 test_dir=$1/test
 
 # Switches for GMM-HMM training are defined here
-createsubwordlm_sw=1
-traindataprep_sw=0
+createsubwordlm_sw=0
+traindataprep_sw=1
 train_sw=0
 rebuildgraph_sw=0
 testdataprep_sw=0
