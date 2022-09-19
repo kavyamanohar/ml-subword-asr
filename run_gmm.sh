@@ -16,8 +16,16 @@ if [ "$#" -ne 1 ]; then
 fi
 
 input_dir=$1
-language_dir=$1/language
-subwordlanguage_dir=$1/LMEXP5
+
+# swunit=word
+# swunit=bpe
+# swunit=morph
+# swunit=unigram
+# swunit=syl
+swunit=sbpe
+
+language_dir=$1/languages
+subwordlanguage_dir=$1/languages/$swunuit
 data_dir=./data
 train_dir=$1/train
 test_dir=$1/test
@@ -36,7 +44,7 @@ echo ===========================================================================
 echo "                  Running the script for Subword Language Model Creation   	        "
 echo ============================================================================
 
-./createLMsubword.sh $subwordlanguage_dir $data_dir
+./createLMsubword.sh $subwordlanguage_dir $data_dir $swunit
 
 fi
 
