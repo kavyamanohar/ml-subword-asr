@@ -63,13 +63,6 @@ done
 
 ./utils/fix_data_dir.sh $data_dir/train
 
-echo ============================================================================
-echo "Running the following script to ensure speech transcripts are split to subwords, using Mlphon python library."
-echo "python syllabify.py -i $data_dir/train/text -o $data_dir/train/syl_text
-sed 's/\?//g' $data_dir/train/syl_text > $data_dir/train/text"
-
-python syllabify.py -i $data_dir/train/text -o $data_dir/train/syl_text
-sed 's/\?//g' $data_dir/train/syl_text > $data_dir/train/text
 
 
 echo ============================================================================
