@@ -156,7 +156,7 @@ echo ===========================================================================
 # utils/subword/prepare_lang_subword.sh --num-sil-states 3  $dict_dir "<unk>" $data_dir/local/$train_lang $data_dir/$train_lang
 # 
 # For word position independent phones in the lexicon
-utils/subword/prepare_lang_subword.sh --num-sil-states 3  --separator "+" --position-dependent-phones "false" $dict_dir "<unk>" $data_dir/local/$train_lang $data_dir/$train_lang
+utils/subword/prepare_lang_subword.sh --num-sil-states 3  --separator "+" --position-dependent-phones "true" $dict_dir "<unk>" $data_dir/local/$train_lang $data_dir/$train_lang
 
 
 echo ============================================================================

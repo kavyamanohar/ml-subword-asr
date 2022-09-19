@@ -33,10 +33,10 @@ test_dir=$1/test
 # Switches for GMM-HMM training are defined here
 createsubwordlm_sw=0
 traindataprep_sw=0
-train_sw=1
+train_sw=0
 rebuildgraph_sw=0
-testdataprep_sw=0
-test_sw=0
+testdataprep_sw=1
+test_sw=1
 
 if [ $createsubwordlm_sw == 1 ]; then
 
@@ -103,9 +103,7 @@ if [ $test_sw == 1 ]; then
                 mkdir $data_dir/$test_dir
                 ./audiodataprep.sh $d $data_dir $test_dir
                 ./utils/fix_data_dir.sh $data_dir/$test_dir
-                echo "Speech transcripts are split to subwords, using Mlphon python library."
-                python syllabify.py -i $data_dir/$test_dir/text -o $data_dir/$test_dir/syl_text
-                sed 's/\?//g' $data_dir/$test_dir/syl_text > $data_dir/$test_dir/text
+
 
                 echo "     MFCC Feature Extraction and Mean-Variance Tuning for Testing  	        "
 
