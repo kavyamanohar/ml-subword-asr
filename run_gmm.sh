@@ -118,7 +118,7 @@ if [ $test_sw == 1 ]; then
             fi
 
             echo "     Runing Decoding scripts  	        "
-            ./test_gmm.sh $data_dir $test_dir $swunit
+            ./test_gmm.sh $data_dir $test_dir $swunit $ngram
     done
 
 fi
