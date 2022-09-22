@@ -202,7 +202,7 @@ cut -f 1 $dict_dir/lexicon.txt > $data_dir/$local/tmp_$train_lang/wordlist.txt
 
 
 #The words in lm_train.txt, which are listed in wordlist.txt, will have their entries in lm.arpa
-ngram-count -order $n_gram -text $data_dir/$train_folder/lm_train-$swunit.txt \
+ngram-count -order $ngram -text $data_dir/$train_folder/lm_train-$swunit.txt \
     -vocab $data_dir/$local/tmp_$train_lang/wordlist.txt \
     -write-vocab $data_dir/$local/tmp_$train_lang/vocab-full.txt \
     -wbdiscount -wbdiscount1 -kndiscount2 -kndiscount3 -kndiscount4 -kndiscount5 -kndiscount6 -interpolate\
