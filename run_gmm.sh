@@ -91,7 +91,7 @@ echo ===========================================================================
 fi
 
 if [ $rebuildgraph_sw == 1 ]; then
-./makegraphs_gmm.sh $data_dir
+./makegraphs_gmm.sh $data_dir $swunit $ngram
 
 fi
 
