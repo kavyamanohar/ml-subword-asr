@@ -6,7 +6,7 @@
 # Kavya Manohar(2020)
 
 
-if [ "$#" -ne 1 ]; then
+if [ "$#" -ne 3 ]; then
     echo "ERROR: $0"
     echo "USAGE: $0 <data_dir> <swunit> <ngram>"
     exit 1
