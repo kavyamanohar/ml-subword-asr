@@ -44,7 +44,7 @@ if [ $mono_sw == 1 ]; then
 model_dir=exp/mono
 
 echo "===== MONO DECODING ====="
-echo "Decoding with the model $model_dir"
+echo "Decoding with the model $model_dir\_$swunit\_$ngram"
 
 steps/decode.sh --config conf/decode.config --nj $nj --cmd "$decode_cmd" --stage 0 $model_dir/graph_$swunit\_$ngram $data_dir/$test_dir $model_dir/decode_$test_dir\_$swunit\_$ngram
 
