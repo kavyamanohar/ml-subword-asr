@@ -164,7 +164,6 @@ utils/subword/prepare_lang_subword.sh --num-sil-states 3 --separator "+" $dict_d
 echo ============================================================================
 echo "                   Creating  n-gram LM G.fst           	        "
 echo ============================================================================
-n_gram=3 # This specifies ngram order. for bigram set n_gram=2 for tri_gram set n_gram=3
 
 
 echo "$0: Looking for language model training sentences files in $language_dir"
