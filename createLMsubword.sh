@@ -80,32 +80,34 @@
         # └── train
         # └── lm_train.txt
 
-if [ "$#" -ne 3 ]; then
+if [ "$#" -ne 4 ]; then
     echo "ERROR: $0"
-    echo "USAGE: $0 <subwordlanguage_dir> <data_dir> <swunit>"
+    echo "USAGE: $0 <subwordlanguage_dir> <data_dir> <swunit> <ngram>"
     exit 1
 fi
 
 language_dir=$1
 data_dir=$2
 swunit=$3
+ngram=$4
 
 #Defines the names of silence phone and spoken noice phone
 silencephone=SIL
 spokennoicephone=SPN
 
-dict_dir=${data_dir}/local/dict
+
 
 
 kaldi_root_dir='../..'
 
-train_dict=dict
-train_lang=lang_ngram
-train_folder=train_lm
+local=local_$swunit
+dict_dir=${data_dir}/$local/dict
+train_lang=lang_$swunit\_$ngram
+train_folder=train_lm_$swunit
 
 
-rm -rf $data_dir/local/dict
-rm -rf $data_dir/local/tmp_$train_lang
+rm -rf $data_dir/$local/dict
+rm -rf $data_dir/$local/tmp_$train_lang
 rm -rf $data_dir/$train_lang
 rm -rf $data_dir/$train_folder
 
@@ -118,8 +120,8 @@ for i in $sourcelexicon; do
     head $language_dir/$swunit/$i
 done;
 
-mkdir -p $data_dir/local/dict
-mkdir $data_dir/local/tmp_$train_lang
+mkdir -p $data_dir/$local/dict
+mkdir $data_dir/$local/tmp_$train_lang
 mkdir $data_dir/$train_lang
 mkdir $data_dir/$train_folder
 
@@ -153,10 +155,10 @@ echo ===========================================================================
 echo "                   Creating  lexicon dictionary L.fst               	        "
 echo ============================================================================
 
-# utils/subword/prepare_lang_subword.sh --num-sil-states 3  $dict_dir "<unk>" $data_dir/local/$train_lang $data_dir/$train_lang
+utils/subword/prepare_lang_subword.sh --num-sil-states 3 --separator "+" $dict_dir "<unk>" $data_dir/$local/$train_lang $data_dir/$train_lang
 # 
 # For word position independent phones in the lexicon
-utils/subword/prepare_lang_subword.sh --num-sil-states 3  --separator "+" --position-dependent-phones "true" $dict_dir "<unk>" $data_dir/local/$train_lang $data_dir/$train_lang
+# utils/subword/prepare_lang_subword.sh --num-sil-states 3  --separator "+" --position-dependent-phones "true" $dict_dir "<unk>" $data_dir/$local/$train_lang $data_dir/$train_lang
 
 
 echo ============================================================================
@@ -196,16 +198,16 @@ fi
 
 prune_thresh_small=0.00000003
 
-cut -f 1 $dict_dir/lexicon.txt > $data_dir/local/tmp_$train_lang/wordlist.txt 
+cut -f 1 $dict_dir/lexicon.txt > $data_dir/$local/tmp_$train_lang/wordlist.txt 
 # This word list is free from disambig symbols and  <eps>  which are present in $data_dir/$train_lang/words.txt and can affect arpa2fst conversions
 
 
 #The words in lm_train.txt, which are listed in wordlist.txt, will have their entries in lm.arpa
 ngram-count -order $n_gram -text $data_dir/$train_folder/lm_train-$swunit.txt \
-    -vocab $data_dir/local/tmp_$train_lang/wordlist.txt \
-    -write-vocab $data_dir/local/tmp_$train_lang/vocab-full.txt \
+    -vocab $data_dir/$local/tmp_$train_lang/wordlist.txt \
+    -write-vocab $data_dir/$local/tmp_$train_lang/vocab-full.txt \
     -wbdiscount -wbdiscount1 -kndiscount2 -kndiscount3 -kndiscount4 -kndiscount5 -kndiscount6 -interpolate\
-    -lm $data_dir/local/tmp_$train_lang/lm.arpa
+    -lm $data_dir/$local/tmp_$train_lang/lm.arpa
 
 mkdir -p RESULT
 echo "=======LM details=======" >> RESULT/LMmodel.txt
@@ -214,14 +216,14 @@ wc -l $dict_dir/lexicon.txt  >> RESULT/LMmodel.txt
 echo "Langauge model training sentences:" >> RESULT/LMmodel.txt
 wc -l $data_dir/$train_folder/lm_train-$swunit.txt  >> RESULT/LMmodel.txt
 echo "Ngram order: $n_gram" >> RESULT/LMmodel.txt
-ngram -order $n_gram -lm $data_dir/local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/lm_train-$swunit.txt >> RESULT/LMmodel.txt
-ngram -order $n_gram -lm $data_dir/local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/iiithtext-$swunit.txt >> RESULT/LMmodel.txt
-ngram -order $n_gram -lm $data_dir/local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/openslrtesttext-$swunit.txt >> RESULT/LMmodel.txt
-ngram -order $n_gram -lm $data_dir/local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/msctext-$swunit.txt >> RESULT/LMmodel.txt
+ngram -order $n_gram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/lm_train-$swunit.txt >> RESULT/LMmodel.txt
+ngram -order $n_gram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/iiithtext-$swunit.txt >> RESULT/LMmodel.txt
+ngram -order $n_gram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/openslrtesttext-$swunit.txt >> RESULT/LMmodel.txt
+ngram -order $n_gram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/msctext-$swunit.txt >> RESULT/LMmodel.txt
 
 
 arpa2fst --disambig-symbol=\#0 \
-    --read-symbol-table=$data_dir/$train_lang/words.txt $data_dir/local/tmp_$train_lang/lm.arpa $data_dir/$train_lang$lang/G.fst
+    --read-symbol-table=$data_dir/$train_lang/words.txt $data_dir/$local/tmp_$train_lang/lm.arpa $data_dir/$train_lang$lang/G.fst
 
 echo ============================================================================
 echo "                   End of Language Model Creation             	        "

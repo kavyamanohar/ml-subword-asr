@@ -17,12 +17,18 @@ fi
 
 input_dir=$1
 
-# swunit=word
-swunit=bpe
+swunit=word
+# swunit=bpe
 # swunit=morph
 # swunit=unigram
 # swunit=syl
 # swunit=sbpe
+
+ngram=2
+# ngram=3
+# ngram=4
+# ngram=5
+# ngram=6
 
 language_dir=$1/languages
 subwordlanguage_dir=$1/languages/$swunuit
@@ -32,11 +38,11 @@ test_dir=$1/test
 
 # Switches for GMM-HMM training are defined here
 createsubwordlm_sw=1
-traindataprep_sw=0
-train_sw=0
-rebuildgraph_sw=1
+traindataprep_sw=1
+train_sw=1
+rebuildgraph_sw=0
 testdataprep_sw=0
-test_sw=1
+test_sw=0
 
 if [ $createsubwordlm_sw == 1 ]; then
 
@@ -44,7 +50,7 @@ echo ===========================================================================
 echo "                  Running the script for Subword Language Model Creation   	        "
 echo ============================================================================
 
-./createLMsubword.sh $subwordlanguage_dir $data_dir $swunit
+./createLMsubword.sh $subwordlanguage_dir $data_dir $swunit $ngram
 
 fi
 
@@ -81,7 +87,7 @@ echo "     Acoustic Model Training Compiling Decoding Graphs  	        "
 echo ============================================================================
 ./utils/fix_data_dir.sh $data_dir/train
 
-./train_gmm.sh $data_dir 
+./train_gmm.sh $data_dir $swunit $ngram
 fi
 
 if [ $rebuildgraph_sw == 1 ]; then
@@ -112,7 +118,7 @@ if [ $test_sw == 1 ]; then
             fi
 
             echo "     Runing Decoding scripts  	        "
-            ./test_gmm.sh $data_dir $test_dir
+            ./test_gmm.sh $data_dir $test_dir $swunit
     done
 
 fi

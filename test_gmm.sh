@@ -10,14 +10,15 @@ basepath='.'
 #USAGE
 #      ./test.sh <data_dir> <test_dir>
 
-if [ "$#" -ne 2 ]; then
+if [ "$#" -ne 3 ]; then
     echo "ERROR: $0"
-    echo "USAGE: $0 <data_dir> <test_dir>"
+    echo "USAGE: $0 <data_dir> <test_dir> <swunit>"
     exit 1
 fi
 
 data_dir=$1
 test_dir=$2
+swunit=$3
 nspk=$(wc -l <$data_dir/$test_dir/spk2utt)
 nj=$nspk
 
