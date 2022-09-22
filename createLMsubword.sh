@@ -214,11 +214,11 @@ echo "$swunit Lexicon size:" >> RESULT/LMmodel_$swunit.txt
 wc -l $dict_dir/lexicon.txt  >> RESULT/LMmodel_$swunit.txt
 echo "Langauge model training sentences:" >> RESULT/LMmodel_$swunit.txt
 wc -l $data_dir/$train_folder/lm_train-$swunit.txt  >> RESULT/LMmodel_$swunit.txt
-echo "Ngram order: $n_gram" >> RESULT/LMmodel_$swunit.txt
-ngram -order $n_gram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/lm_train-$swunit.txt >> RESULT/LMmodel_$swunit.txt
-ngram -order $n_gram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/iiithtext-$swunit.txt >> RESULT/LMmodel_$swunit.txt
-ngram -order $n_gram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/openslrtesttext-$swunit.txt >> RESULT/LMmodel_$swunit.txt
-ngram -order $n_gram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/msctext-$swunit.txt >> RESULT/LMmodel_$swunit.txt
+echo "Ngram order: $ngram" >> RESULT/LMmodel_$swunit.txt
+ngram -order $ngram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/lm_train-$swunit.txt >> RESULT/LMmodel_$swunit.txt
+ngram -order $ngram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/iiithtext-$swunit.txt >> RESULT/LMmodel_$swunit.txt
+ngram -order $ngram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/openslrtesttext-$swunit.txt >> RESULT/LMmodel_$swunit.txt
+ngram -order $ngram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/msctext-$swunit.txt >> RESULT/LMmodel_$swunit.txt
 
 
 arpa2fst --disambig-symbol=\#0 \
