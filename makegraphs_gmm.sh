@@ -12,12 +12,14 @@ if [ "$#" -ne 3 ]; then
     exit 1
 fi
 
-train_dict=dict
-train_lang=lang_$swunit\_$ngram
-exp=exp
 data_dir=$1
 swunit=$2
 ngram=$3
+
+train_dict=dict
+train_lang=lang_$swunit\_$ngram
+exp=exp
+
 
 mono_sw=1
 tri_sw=0
