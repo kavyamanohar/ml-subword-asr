@@ -15,13 +15,26 @@ set -e -o pipefail
  
 # First the options that are passed through to run_ivector_common.sh (The current script does not pass arguments to run_ivector_common.sh)
 # (some of which are also used in this script directly).
+# swunit=word
+# swunit=bpe
+# swunit=morph
+# swunit=unigram
+swunit=syl
+# swunit=sbpe
+
+# ngram=2
+# ngram=3
+ngram=4
+# ngram=5
+# ngram=6
+
 stage=0  #0
 nj=5
 tag=   #experiment tag, so that models are not overwritten; make sure change this if running a new experiment.
 expdir=exp
 datadir=data #Give the absolute path in case your data directory is not present in the current working directory
 train_set=train        #Train set Name
-test_sets="openslr_test msc iiith"        #"test_dev93 test_eval92"
+test_sets="openslr_test"        #"test_dev93 test_eval92"
 #The triphone SAT model
 gmm=tri_550_18000_sat  # this is the source gmm-dir that we'll use for alignments; it
                             # should have alignments for the specified training data.
@@ -90,7 +103,7 @@ dir=$expdir/chain${nnet3_affix}/tdnn${affix}_sp
 train_data_dir=$datadir/${train_set}_sp_hires
 train_ivector_dir=$expdir/nnet3/ivectors_${train_set}_sp_hires
 lores_train_data_dir=$datadir/${train_set}_sp
-original_lang=lang_ngram
+original_lang=lang_$swunit\_$ngram
 echo "$train_ivector_dir"
 # note: you don't necessarily have to change the treedir name
 # each time you do a new experiment-- only if you change the
@@ -99,7 +112,7 @@ tree_dir=$expdir/chain${nnet3_affix}/tree_a_sp
 # the 'lang' directory is created by this script.
 # If you create such a directory with a non-standard topology
 # you should probably name it differently.
-lang=$datadir/lang_chain
+lang=$datadir/lang_chain_$swunit\_$ngram
 
 for f in $train_data_dir/feats.scp $train_ivector_dir/ivector_online.scp \
 	$lores_train_data_dir/feats.scp $gmm_dir/final.mdl \
@@ -259,7 +272,7 @@ if [ $stage -le 17 ]; then
 
 	utils/mkgraph.sh \
     	  --self-loop-scale 1.0 $datadir/$original_lang \
-    	  $tree_dir $tree_dir/graph || exit 1;
+    	  $tree_dir $tree_dir/graph_$swunit\_$ngram || exit 1;
 
 <<"over"
   utils/lang/check_phones_compatible.sh \
@@ -290,7 +303,7 @@ if [ $stage -le 18 ]; then
           	  --frames-per-chunk $frames_per_chunk \
           	  --nj $nspk --cmd "$decode_cmd"  --num-threads 4 \
           	  --online-ivector-dir $expdir/nnet3/ivectors_${data}_hires \
-          	  $tree_dir/graph $datadir/${data}_hires ${dir}/decode_${data} || exit 1
+          	  $tree_dir/graph_$swunit\_$ngram $datadir/${data}_hires ${dir}/decode_${data} || exit 1
       		#done
 			model=$(basename $dir)
 			cat ${dir}/decode_${data}/scoring_kaldi/best_wer >> RESULT/${data}\_${model}.txt
@@ -334,7 +347,7 @@ if $test_online_decoding && [ $stage -le 19 ]; then
 			steps/online/nnet3/decode.sh \
 		  	  --acwt 1.0 --post-decode-acwt 10.0 \
 		  	  --nj $nspk --cmd "$decode_cmd" \
-		  	$tree_dir/graph ${datadir}/${data} ${dir}_online/decode_${data_affix} || exit 1
+		  	$tree_dir/graph_$swunit\_$ngram ${datadir}/${data} ${dir}_online/decode_${data_affix} || exit 1
       		#done
       		steps/lmrescore.sh \
         	  --self-loop-scale 1.0 \

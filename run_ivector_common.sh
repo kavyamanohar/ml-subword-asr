@@ -10,10 +10,24 @@ set -e -o pipefail
 
 stage=0
 nj=50
+
+# swunit=word
+# swunit=bpe
+# swunit=morph
+# swunit=unigram
+swunit=syl
+# swunit=sbpe
+
+# ngram=2
+# ngram=3
+ngram=4
+# ngram=5
+# ngram=6
+
 data_folder=data
 exp_folder=exp
 train_set=train # you might set this to e.g. train.
-test_sets="openslr_test msc iiith"
+test_sets="openslr_test"
 gmm=tri_550_18000_sat                # This specifies a GMM-dir from the features of the type you're training the system on;
                          # it should contain alignments for 'train_set'.
 
@@ -23,7 +37,7 @@ nj_extractor=10
 # It runs a JOB with '-pe smp N', where N=$[threads*processes]
 num_processes_extractor=4
 num_threads_extractor=4
-lang=lang_ngram
+lang=lang_$swunit\_$ngram
 
 nnet3_affix=             # affix for exp/nnet3 directory to put iVector stuff in (e.g.
                          # in the tedlium recip it's _cleaned).
