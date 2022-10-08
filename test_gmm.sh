@@ -73,9 +73,9 @@ mkdir RESULT
 echo "Saving Results"
 model=$(basename $model_dir)
 echo "=====WER=====" > RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
-cat $model_dir/decode_$test_dir\_$swunit\_$ngram /scoring_kaldi/best_wer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
+cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_wer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 echo "=====CER=====" >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
-cat $model_dir/decode_$test_dir/scoring_kaldi/best_cer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
+cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_cer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 echo "=====SWER=====" >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_swer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 
@@ -107,7 +107,7 @@ model_dir=exp/tri_$trisatsen\_$trisatgauss\_sat
 
 echo "===== TRI SAT DECODING ====="
 echo "Decoding with the model $model_dir"
-steps/decode_fmllr.sh --config conf/decode.config --nj $nj --cmd "$decode_cmd" --stage 0 $model_dir/graph_$swunit\_$ngram $data_dir/$test_dir $model_dir/decode_$test_dir
+steps/decode_fmllr.sh --config conf/decode.config --nj $nj --cmd "$decode_cmd" --stage 0 $model_dir/graph_$swunit\_$ngram $data_dir/$test_dir $model_dir/decode_$test_dir\_$swunit\_$ngram
 
 mkdir RESULT
 echo "Saving Results"
