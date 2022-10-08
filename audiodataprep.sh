@@ -60,6 +60,7 @@ echo "Creating the list of Speaker IDs mapped to corresponding list of utterance
 echo "Creating the file of transcripts"
 awk '{print $1 "\t" $5}' FS='\t' $audio_corpus/metadata.tsv > $data_dir/$train_or_test_dir/temptext
 
+sed -i 's/\xEF\xBB\xBF//g' $data_dir/$train_or_test_dir/temp*
 
 cat $data_dir/$train_or_test_dir/temputt >> $data_dir/$train_or_test_dir/utt
 cat $data_dir/$train_or_test_dir/tempspk >> $data_dir/$train_or_test_dir/spk
