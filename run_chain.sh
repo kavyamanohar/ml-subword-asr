@@ -303,12 +303,12 @@ if [ $stage -le 18 ]; then
           	  --frames-per-chunk $frames_per_chunk \
           	  --nj $nspk --cmd "$decode_cmd"  --num-threads 4 \
           	  --online-ivector-dir $expdir/nnet3/ivectors_${data}_hires \
-          	  $tree_dir/graph_$swunit\_$ngram $datadir/${data}_hires ${dir}/decode_${data} || exit 1
+          	  $tree_dir/graph_$swunit\_$ngram $datadir/${data}_hires ${dir}/decode_${data}\_$swunit\_$ngram || exit 1
       		#done
 			model=$(basename $dir)
-			cat ${dir}/decode_${data}/scoring_kaldi/best_wer >> RESULT/${data}\_${model}.txt
-			cat ${dir}/decode_${data}/scoring_kaldi/best_cer >> RESULT/${data}\_${model}.txt
-			cat ${dir}/decode_${data}/scoring_kaldi/best_swer >> RESULT/${data}\_${model}.txt
+			cat ${dir}/decode_${data}\_$swunit\_$ngram/scoring_kaldi/best_wer >> RESULT/${data}\_${model}\_$swunit\_$ngram.txt
+			cat ${dir}/decode_${data}\_$swunit\_$ngram/scoring_kaldi/best_cer >> RESULT/${data}\_${model}\_$swunit\_$ngram.txt
+			cat ${dir}/decode_${data}\_$swunit\_$ngram/scoring_kaldi/best_swer >> RESULT/${data}\_${model}\_$swunit\_$ngram.txt
 :<<"over"
         steps/lmrescore.sh \
           --self-loop-scale 1.0 \
