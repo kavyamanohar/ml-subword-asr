@@ -17,18 +17,18 @@ fi
 
 input_dir=$1
 
-swunit=word
-# swunit=bpe
-# swunit=morph
-# swunit=unigram
-# swunit=syl
-# swunit=sbpe
+#swunit=word
+#swunit=bpe
+#swunit=morph
+#swunit=unigram
+#swunit=syl
+swunit=sbpe
 
 ngram=2
-# ngram=3
-# ngram=4
-# ngram=5
-# ngram=6
+#ngram=3
+#ngram=4
+#ngram=5
+#ngram=6
 
 language_dir=$1/languages
 subwordlanguage_dir=$1/languages/$swunuit
@@ -38,11 +38,11 @@ test_dir=$1/test
 
 # Switches for GMM-HMM training are defined here
 createsubwordlm_sw=1
-traindataprep_sw=1
-train_sw=1
-rebuildgraph_sw=0
+traindataprep_sw=0
+train_sw=0
+rebuildgraph_sw=1
 testdataprep_sw=0
-test_sw=0
+test_sw=1
 
 if [ $createsubwordlm_sw == 1 ]; then
 

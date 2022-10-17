@@ -25,9 +25,9 @@ nspk=$(wc -l <$data_dir/$test_dir/spk2utt)
 nj=$nspk
 
 mono_sw=1
-tri_sw=0
-trilda_sw=0
-trisat_sw=0
+tri_sw=1
+trilda_sw=1
+trisat_sw=1
 
 tri1sen=150
 tri1gauss=12000
@@ -55,8 +55,8 @@ echo "=====WER=====" > RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_wer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 echo "=====CER=====" >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_cer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
-echo "=====SWER=====" >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
-cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_swer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
+#echo "=====SWER=====" >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
+#cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_swer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 
 fi
 
@@ -76,8 +76,8 @@ echo "=====WER=====" > RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_wer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 echo "=====CER=====" >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_cer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
-echo "=====SWER=====" >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
-cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_swer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
+#echo "=====SWER=====" >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
+#cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_swer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 
 fi
 
@@ -92,12 +92,12 @@ steps/decode.sh --config conf/decode.config --nj $nj --cmd "$decode_cmd" --stage
 mkdir RESULT
 echo "Saving Results"
 model=$(basename $model_dir)
-echo "=====WER=====" > RESULT/$test_dir\_$mode\_$swunit\_$ngraml.txt
+echo "=====WER=====" > RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_wer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 echo "=====CER=====" >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_cer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
-echo "=====SWER=====" >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
-cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_swer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
+#echo "=====SWER=====" >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
+#cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_swer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 
 fi
 
@@ -116,8 +116,8 @@ echo "=====WER=====" > RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_wer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 echo "=====CER=====" >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_cer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
-echo "=====SWER=====" >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
-cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_swer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
+#echo "=====SWER=====" >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
+#cat $model_dir/decode_$test_dir\_$swunit\_$ngram/scoring_kaldi/best_swer >> RESULT/$test_dir\_$model\_$swunit\_$ngram.txt
 
 fi
 

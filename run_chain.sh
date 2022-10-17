@@ -15,20 +15,21 @@ set -e -o pipefail
  
 # First the options that are passed through to run_ivector_common.sh (The current script does not pass arguments to run_ivector_common.sh)
 # (some of which are also used in this script directly).
+
 # swunit=word
-# swunit=bpe
-# swunit=morph
+#swunit=bpe
+swunit=morph
 # swunit=unigram
-swunit=syl
-# swunit=sbpe
+#swunit=syl
+#swunit=sbpe
 
-# ngram=2
-# ngram=3
+#ngram=2
+#ngram=3
 ngram=4
-# ngram=5
-# ngram=6
+#ngram=5
+#ngram=6
 
-stage=0  #0
+stage=17  #0
 nj=5
 tag=   #experiment tag, so that models are not overwritten; make sure change this if running a new experiment.
 expdir=exp
@@ -84,7 +85,7 @@ EOF
 fi
 date
 
-./run_ivector_common.sh
+#./run_ivector_common.sh
 # ./run_ivector_common.sh \
 #  --stage $stage --nj $nj \
 #  --train-set $train_set --gmm $gmm --test-sets $test_sets --data-folder $datadir --exp-folder $expdir \
@@ -112,7 +113,7 @@ tree_dir=$expdir/chain${nnet3_affix}/tree_a_sp
 # the 'lang' directory is created by this script.
 # If you create such a directory with a non-standard topology
 # you should probably name it differently.
-lang=$datadir/lang_chain_$swunit\_$ngram
+lang=$datadir/lang_chain
 
 for f in $train_data_dir/feats.scp $train_ivector_dir/ivector_online.scp \
 	$lores_train_data_dir/feats.scp $gmm_dir/final.mdl \
@@ -308,7 +309,7 @@ if [ $stage -le 18 ]; then
 			model=$(basename $dir)
 			cat ${dir}/decode_${data}\_$swunit\_$ngram/scoring_kaldi/best_wer >> RESULT/${data}\_${model}\_$swunit\_$ngram.txt
 			cat ${dir}/decode_${data}\_$swunit\_$ngram/scoring_kaldi/best_cer >> RESULT/${data}\_${model}\_$swunit\_$ngram.txt
-			cat ${dir}/decode_${data}\_$swunit\_$ngram/scoring_kaldi/best_swer >> RESULT/${data}\_${model}\_$swunit\_$ngram.txt
+			# cat ${dir}/decode_${data}\_$swunit\_$ngram/scoring_kaldi/best_swer >> RESULT/${data}\_${model}\_$swunit\_$ngram.txt
 :<<"over"
         steps/lmrescore.sh \
           --self-loop-scale 1.0 \
