@@ -4,7 +4,7 @@ Details on how to run this script and the working is described here.
 
 To install Kaldi, see the documentation [here](https://kaldi-asr.org/doc/install.html)
 
-The source code of `/asr_malayalam` has to be placed in the `/egs` directory of Kaldi installation directory.
+The source code of `/ml-subword-asr` has to be placed in the `/egs` directory of Kaldi installation directory.
 
 ## USAGE
 
@@ -29,11 +29,11 @@ metadata.tsv is a tab separated values of utterence_id, speaker_id, file_name in
 
 This script performs the following tasks:
 
-- Create bigram word level LM grammar from text files
-- Uses predefined phonetic lexicon
+- Create n-gram subword level LM grammar from text files
+- Uses predefined graphemic lexicon
 - Extracts MFCC features(13 cepstral bins) after converting all sampling rates to 16kHz
 - Trains mono, tri, tri_lda, tri_sat acoustic models (AM) is that order, using alignments from previous stage.
-- Compiles the LM grammar, phonetic lexicon and acoustic models to create HCLG.fst graph
+- Compiles the LM grammar, graphemic lexicon and acoustic models to create HCLG.fst graph
 - Test each acoustic model and stores the decoding results
 
 
@@ -50,4 +50,13 @@ This script performs the following tasks:
 - Test and save the results
 
 ## RESULTS
+
+|Segmentation| Best WER (%)| OOV-WER (%)|
+|---         |---        |---       |
+|Word        |35         |100       |
+|Morfessor   |28         |55.3      |
+|BPE         |28         |53.1      |
+|Unigram     |29         |55.0      |
+|Syllable    |26         |49.9      |
+|SBPE        |28         |50.2      |
 
