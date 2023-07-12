@@ -158,7 +158,7 @@ echo ===========================================================================
 utils/subword/prepare_lang_subword.sh --num-sil-states 3 --separator "+" $dict_dir "<unk>" $data_dir/$local/$train_lang $data_dir/$train_lang
 # 
 # For word position independent phones in the lexicon
-# utils/subword/prepare_lang_subword.sh --num-sil-states 3  --separator "+" --position-dependent-phones "true" $dict_dir "<unk>" $data_dir/$local/$train_lang $data_dir/$train_lang
+#utils/subword/prepare_lang_subword.sh --num-sil-states 3  --separator "+" --position-dependent-phones "false" $dict_dir "<unk>" $data_dir/$local/$train_lang $data_dir/$train_lang
 
 
 echo ============================================================================
@@ -216,9 +216,10 @@ echo "Langauge model training sentences:" >> RESULT/LMmodel_$swunit.txt
 wc -l $data_dir/$train_folder/lm_train-$swunit.txt  >> RESULT/LMmodel_$swunit.txt
 echo "Ngram order: $ngram" >> RESULT/LMmodel_$swunit.txt
 ngram -order $ngram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/lm_train-$swunit.txt >> RESULT/LMmodel_$swunit.txt
+ngram -order $ngram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/am_train-$swunit.txt >> RESULT/LMmodel_$swunit.txt
 ngram -order $ngram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/iiithtext-$swunit.txt >> RESULT/LMmodel_$swunit.txt
 ngram -order $ngram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/openslrtesttext-$swunit.txt >> RESULT/LMmodel_$swunit.txt
-ngram -order $ngram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/msctext-$swunit.txt >> RESULT/LMmodel_$swunit.txt
+ngram -order $ngram -lm $data_dir/$local/tmp_$train_lang/lm.arpa -ppl $language_dir/$swunit/cvtesttext-$swunit.txt >> RESULT/LMmodel_$swunit.txt
 
 
 arpa2fst --disambig-symbol=\#0 \

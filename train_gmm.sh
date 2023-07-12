@@ -22,17 +22,17 @@ train_lang=lang_$swunit\_$ngram
 exp=exp
 
 
-mono_sw=1
-tri_sw=1
-trilda_sw=1
+mono_sw=0
+tri_sw=0
+trilda_sw=0
 trisat_sw=1
 
-tri1sen=150
+tri1sen=800
 tri1gauss=12000
-trildasen=400
-trildagauss=17000
-trisatsen=550
-trisatgauss=18000
+trildasen=1200
+trildagauss=20000
+trisatsen=1800
+trisatgauss=24000
 
 echo ============================================================================
 echo "     Acoustic Model Training    	        "

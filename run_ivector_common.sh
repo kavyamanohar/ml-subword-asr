@@ -11,24 +11,24 @@ set -e -o pipefail
 stage=0
 nj=50
 
-# swunit=word
+swunit=word
 # swunit=bpe
 # swunit=morph
 # swunit=unigram
-swunit=syl
+#swunit=syl
 # swunit=sbpe
 
-# ngram=2
+ngram=2
 # ngram=3
-ngram=4
+#ngram=4
 # ngram=5
 # ngram=6
 
 data_folder=data
 exp_folder=exp
 train_set=train # you might set this to e.g. train.
-test_sets="openslr_test"
-gmm=tri_550_18000_sat                # This specifies a GMM-dir from the features of the type you're training the system on;
+test_sets="openslr_test cv_test iiith"
+gmm=tri_1800_24000_sat                # This specifies a GMM-dir from the features of the type you're training the system on;
                          # it should contain alignments for 'train_set'.
 
 num_threads_ubm=30
