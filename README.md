@@ -49,14 +49,25 @@ This script performs the following tasks:
 - Make graph with new AM model
 - Test and save the results
 
+
+## DATASETS
+| Corpus                                       | #Speakers | #Utterances | Duration (hours) | Environment | Usage      |
+| -------------------------------------------- | --------- | ----------- | ---------------- | ----------- | ---------- |
+| Indic TTS, IITM                              | 2         | 8601        | 14               | Studio      | Training   |
+| Open SLR 63 - Train                          | 37        | 3346        | 5                | Studio      | Training   |
+| IMaSC                                        | 8         | 34473       | 49               | Studio      | Training   |
+| MSC                                          | 75        | 1541        | 1                | Natural     | Training   |
+| IIITH                                        | 1         | 1000        | 1                | Studio      | Validation |
+| Open SLR 63 - Test                           | 7         | 679         | 1                | Studio      | Testing    |
+
 ## RESULTS
 
 |Segmentation| Best WER (%)| OOV-WER (%)|
 |---         |---        |---       |
-|Word        |35         |100       |
-|Morfessor   |28         |55.3      |
-|BPE         |28         |53.1      |
-|Unigram     |29         |55.0      |
-|Syllable    |26         |49.9      |
-|SBPE        |28         |50.2      |
+|Word        |27.4       |100       |
+|Morfessor   |12.8       |26.6      |
+|BPE         |11.0       |26.0      |
+|Unigram     |11.9       |26.0      |
+|Syllable    |13.5       |24.8      |
+|SBPE        |10.6       |24.8      |
 
